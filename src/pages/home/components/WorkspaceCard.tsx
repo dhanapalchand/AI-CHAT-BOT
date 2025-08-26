@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, Text, Group, Button, Badge } from '@mantine/core';
+import { Card, Text, Group, Button } from '@mantine/core';
 import { IconEdit, IconMessageCircle, IconCalendar, IconFile } from '@tabler/icons-react';
 import { Workspace } from '../../../types';
 import GlassCard from '../../../components/ui/GlassCard';
@@ -17,25 +17,25 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ workspace, onEdit, onChat
       <Card.Section className="p-6 h-full flex flex-col">
         <div className="flex-1 mb-6">
           <Group justify="space-between" mb="md">
-            <Text size="xl" fw={600} className="text-white line-clamp-2">
+            <Text size="xl" fw={600} c="white" className="line-clamp-2">
               {workspace.name}
             </Text>
           </Group>
           
-          <Text size="sm" className="text-white/80 line-clamp-3 mb-4">
-              {workspace.description}
+          <Text size="sm" c="rgba(255, 255, 255, 0.8)" className="line-clamp-3 mb-4">
+            {workspace.description}
           </Text>
           
           <Group gap="lg" mb="md">
             <Group gap="xs">
               <IconFile size={16} className="text-white/60" />
-              <Text size="sm" className="text-white/60">
+              <Text size="sm" c="rgba(255, 255, 255, 0.6)">
                 {workspace.files.length} files
               </Text>
             </Group>
             <Group gap="xs">
               <IconCalendar size={16} className="text-white/60" />
-              <Text size="sm" className="text-white/60">
+              <Text size="sm" c="rgba(255, 255, 255, 0.6)">
                 {new Date(workspace.updatedAt).toLocaleDateString()}
               </Text>
             </Group>
@@ -48,10 +48,12 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ workspace, onEdit, onChat
             variant="subtle"
             leftSection={<IconEdit size={16} />}
             className="liquid-button"
-            style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              color: 'white',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+            styles={{
+              root: {
+                background: 'rgba(255, 255, 255, 0.1)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+              },
             }}
           >
             Edit
@@ -61,10 +63,12 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ workspace, onEdit, onChat
             onClick={() => onChat(workspace)}
             leftSection={<IconMessageCircle size={16} />}
             className="liquid-button"
-            style={{
-              background: 'rgba(255, 255, 255, 0.2)',
-              color: 'white',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+            styles={{
+              root: {
+                background: 'rgba(255, 255, 255, 0.2)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+              },
             }}
           >
             Chat

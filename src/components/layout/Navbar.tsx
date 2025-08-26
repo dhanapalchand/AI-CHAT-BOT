@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
         <Group justify="space-between" h={64}>
           <Link to="/" className="flex items-center space-x-3 no-underline">
             <IconRobot size={32} className="text-white" />
-            <Text size="xl" fw={700} className="text-white">
+            <Text size="xl" fw={700} c="white">
               AI Workspace
             </Text>
           </Link>
@@ -41,9 +41,11 @@ const Navbar: React.FC = () => {
                   variant={isActive ? "filled" : "subtle"}
                   leftSection={<Icon size={16} />}
                   className={`liquid-button ${isActive ? 'bg-white/20' : ''}`}
-                  style={{
-                    color: 'white',
-                    background: isActive ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                  styles={{
+                    root: {
+                      color: 'white',
+                      backgroundColor: isActive ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                    },
                   }}
                 >
                   {item.label}

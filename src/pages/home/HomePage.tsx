@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { Container, Title, Text, TextInput, Button, Group, Grid, SimpleGrid } from '@mantine/core';
+import { Container, Title, Text, TextInput, Button, Group, SimpleGrid } from '@mantine/core';
 import { IconPlus, IconSearch, IconFilter } from '@tabler/icons-react';
 import { useWorkspaces } from '../../api/queries';
 import { currentWorkspaceState } from '../../store/atoms';
@@ -43,10 +43,10 @@ const HomePage: React.FC = () => {
         style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
       >
         <GlassCard className="p-8 text-center">
-          <Text size="xl" fw={600} className="text-white mb-2">
+          <Text size="xl" fw={600} c="white" mb="sm">
             Error Loading Workspaces
           </Text>
-          <Text className="text-white/80">
+          <Text c="rgba(255, 255, 255, 0.8)">
             Please try refreshing the page
           </Text>
         </GlassCard>
@@ -66,10 +66,10 @@ const HomePage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <Title order={1} size="h1" className="text-white mb-2">
+          <Title order={1} size="h1" c="white" mb="sm">
             Your AI Workspaces
           </Title>
-          <Text size="lg" className="text-white/80">
+          <Text size="lg" c="rgba(255, 255, 255, 0.8)">
             Manage and access your AI-powered document workspaces
           </Text>
         </motion.div>
@@ -108,10 +108,12 @@ const HomePage: React.FC = () => {
                   variant="subtle"
                   leftSection={<IconFilter size={16} />}
                   className="liquid-button"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    color: 'white',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  styles={{
+                    root: {
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      color: 'white',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                    },
                   }}
                 >
                   Filter
@@ -121,10 +123,12 @@ const HomePage: React.FC = () => {
                   onClick={() => navigate('/create')}
                   leftSection={<IconPlus size={16} />}
                   className="liquid-button"
-                  style={{
-                    background: 'linear-gradient(45deg, #667eea, #764ba2)',
-                    color: 'white',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                  styles={{
+                    root: {
+                      background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                      color: 'white',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                    },
                   }}
                 >
                   New Workspace
@@ -172,10 +176,10 @@ const HomePage: React.FC = () => {
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <IconPlus size={32} className="text-white" />
               </div>
-              <Title order={3} className="text-white mb-4">
+              <Title order={3} c="white" mb="md">
                 {searchQuery ? 'No workspaces found' : 'No workspaces yet'}
               </Title>
-              <Text className="text-white/80 mb-6">
+              <Text c="rgba(255, 255, 255, 0.8)" mb="xl">
                 {searchQuery 
                   ? 'Try adjusting your search terms'
                   : 'Create your first workspace to get started with AI-powered document analysis'
@@ -186,10 +190,12 @@ const HomePage: React.FC = () => {
                   onClick={() => navigate('/create')}
                   leftSection={<IconPlus size={16} />}
                   className="liquid-button"
-                  style={{
-                    background: 'linear-gradient(45deg, #667eea, #764ba2)',
-                    color: 'white',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                  styles={{
+                    root: {
+                      background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                      color: 'white',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                    },
                   }}
                 >
                   Create Your First Workspace

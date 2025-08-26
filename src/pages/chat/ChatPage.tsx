@@ -87,20 +87,22 @@ const ChatPage: React.FC = () => {
                 variant="subtle"
                 leftSection={<IconArrowLeft size={20} />}
                 className="liquid-button lg:flex"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  color: 'white',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                styles={{
+                  root: {
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  },
                 }}
               >
                 Back to Workspaces
               </Button>
               
               <div className="text-center lg:text-left">
-                <Text size="lg" fw={600} className="text-white">
+                <Text size="lg" fw={600} c="white">
                   {currentWorkspace.name}
                 </Text>
-                <Text size="sm" className="text-white/70">
+                <Text size="sm" c="rgba(255, 255, 255, 0.7)">
                   AI Assistant • {messages.length} messages
                 </Text>
               </div>

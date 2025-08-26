@@ -58,19 +58,21 @@ const CreateWorkspacePage: React.FC = () => {
             variant="subtle"
             leftSection={<IconArrowLeft size={20} />}
             className="liquid-button mb-6"
-            style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              color: 'white',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+            styles={{
+              root: {
+                background: 'rgba(255, 255, 255, 0.1)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+              },
             }}
           >
             Back to Workspaces
           </Button>
           
-          <Title order={1} size="h1" className="text-white mb-2">
+          <Title order={1} size="h1" c="white" mb="sm">
             Create New Workspace
           </Title>
-          <Text size="lg" className="text-white/80">
+          <Text size="lg" c="rgba(255, 255, 255, 0.8)">
             Set up a new AI workspace for your organization's documents
           </Text>
         </motion.div>
@@ -86,55 +88,55 @@ const CreateWorkspacePage: React.FC = () => {
                 <Grid.Col span={{ base: 12, lg: 6 }}>
                   <div className="space-y-6">
                     <div>
-                      <Text size="sm" fw={500} className="text-white mb-2">
-                      Workspace Name *
+                      <Text size="sm" fw={500} c="white" mb="sm">
+                        Workspace Name *
                       </Text>
                       <TextInput
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g., Marketing Team, Engineering Docs"
-                      required
-                      styles={{
-                        input: {
-                          background: 'rgba(255, 255, 255, 0.1)',
-                          border: '1px solid rgba(255, 255, 255, 0.2)',
-                          borderRadius: '12px',
-                          color: 'white',
-                          '&::placeholder': {
-                            color: 'rgba(255, 255, 255, 0.6)',
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="e.g., Marketing Team, Engineering Docs"
+                        required
+                        styles={{
+                          input: {
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            borderRadius: '12px',
+                            color: 'white',
+                            '&::placeholder': {
+                              color: 'rgba(255, 255, 255, 0.6)',
+                            },
                           },
-                        },
-                      }}
-                    />
+                        }}
+                      />
                     </div>
 
                     <div>
-                      <Text size="sm" fw={500} className="text-white mb-2">
-                      Description
+                      <Text size="sm" fw={500} c="white" mb="sm">
+                        Description
                       </Text>
                       <Textarea
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      placeholder="Describe what this workspace contains and its purpose..."
-                      rows={6}
-                      styles={{
-                        input: {
-                          background: 'rgba(255, 255, 255, 0.1)',
-                          border: '1px solid rgba(255, 255, 255, 0.2)',
-                          borderRadius: '12px',
-                          color: 'white',
-                          '&::placeholder': {
-                            color: 'rgba(255, 255, 255, 0.6)',
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="Describe what this workspace contains and its purpose..."
+                        rows={6}
+                        styles={{
+                          input: {
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            borderRadius: '12px',
+                            color: 'white',
+                            '&::placeholder': {
+                              color: 'rgba(255, 255, 255, 0.6)',
+                            },
                           },
-                        },
-                      }}
-                    />
+                        }}
+                      />
                     </div>
                   </div>
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, lg: 6 }}>
-                  <Text size="sm" fw={500} className="text-white mb-4">
+                  <Text size="sm" fw={500} c="white" mb="md">
                     Upload Documents
                   </Text>
                   <FileUploadZone files={files} onFilesChange={setFiles} />
@@ -146,7 +148,7 @@ const CreateWorkspacePage: React.FC = () => {
                   type="button"
                   onClick={() => navigate('/')}
                   variant="subtle"
-                  className="text-white/80 hover:text-white"
+                  c="rgba(255, 255, 255, 0.8)"
                 >
                   Cancel
                 </Button>
@@ -156,12 +158,14 @@ const CreateWorkspacePage: React.FC = () => {
                   disabled={createWorkspace.isPending || !name.trim()}
                   leftSection={<IconDeviceFloppy size={20} />}
                   className="liquid-button"
-                  style={{
-                    background: createWorkspace.isPending || !name.trim() 
-                      ? 'rgba(255, 255, 255, 0.1)' 
-                      : 'linear-gradient(45deg, #667eea, #764ba2)',
-                    color: 'white',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                  styles={{
+                    root: {
+                      background: createWorkspace.isPending || !name.trim() 
+                        ? 'rgba(255, 255, 255, 0.1)' 
+                        : 'linear-gradient(45deg, #667eea, #764ba2)',
+                      color: 'white',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                    },
                   }}
                 >
                   Create Workspace

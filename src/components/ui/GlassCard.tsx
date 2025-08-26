@@ -1,15 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Paper } from '@mantine/core';
+import { Paper, PaperProps } from '@mantine/core';
 
-interface GlassCardProps {
+interface GlassCardProps extends Omit<PaperProps, 'children'> {
   children: React.ReactNode;
-  className?: string;
   hover?: boolean;
   darkMode?: boolean;
 }
 
-const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', hover = false, darkMode = false }) => {
+const GlassCard: React.FC<GlassCardProps> = ({ 
+  children, 
+  className = '', 
+  hover = false, 
+  darkMode = false,
+  ...paperProps 
+}) => {
   return (
     <motion.div
       className={`relative overflow-hidden ${className}`}
@@ -17,6 +22,7 @@ const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', hover =
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       <Paper
+        {...paperProps}
         className={`${darkMode ? 'glass-dark' : 'glass-morphism'} rounded-3xl border-0 h-full`}
         style={{
           background: darkMode 
@@ -26,6 +32,7 @@ const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', hover =
           WebkitBackdropFilter: 'blur(20px)',
           border: `1px solid ${darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)'}`,
           boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+          ...paperProps.style,
         }}
       >
         {children}

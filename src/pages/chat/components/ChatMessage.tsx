@@ -38,7 +38,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLast }) => {
         
         <div className={`flex-1 ${isUser ? 'text-right' : 'text-left'}`}>
           <div 
-            className={`inline-block px-6 py-4 rounded-3xl ${isUser ? 'text-white' : 'text-white'}`}
+            className={`inline-block px-6 py-4 rounded-3xl text-white`}
             style={{
               background: isUser
                 ? 'linear-gradient(45deg, #667eea, #764ba2)'
@@ -51,7 +51,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLast }) => {
             <Text className="leading-relaxed whitespace-pre-wrap">{message.content}</Text>
           </div>
           
-          <Text size="xs" className="text-white/50 mt-2 px-2">
+          <Text size="xs" c="rgba(255, 255, 255, 0.5)" mt="sm" px="sm">
             {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </Text>
         </div>

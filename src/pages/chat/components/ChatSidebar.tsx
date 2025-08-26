@@ -56,13 +56,14 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ workspaceId }) => {
             {/* Header */}
             <div className="p-6 border-b border-white/10">
               <Group justify="space-between" mb="md">
-                <Text fw={600} className="text-white truncate">
+                <Text fw={600} c="white" className="truncate">
                   {currentWorkspace?.name || 'Chat'}
                 </Text>
                 <ActionIcon
                   onClick={() => setSidebarOpen(false)}
                   variant="subtle"
-                  className="lg:hidden text-white"
+                  className="lg:hidden"
+                  c="white"
                 >
                   <IconX size={20} />
                 </ActionIcon>
@@ -72,10 +73,12 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ workspaceId }) => {
                 fullWidth
                 leftSection={<IconPlus size={20} />}
                 className="liquid-button"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  color: 'white',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                styles={{
+                  root: {
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  },
                 }}
               >
                 New Chat
@@ -107,10 +110,12 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ workspaceId }) => {
                   fullWidth
                   variant="subtle"
                   className="liquid-button"
-                  style={{
-                    background: 'rgba(239, 68, 68, 0.2)',
-                    color: 'rgb(239, 68, 68)',
-                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                  styles={{
+                    root: {
+                      background: 'rgba(239, 68, 68, 0.2)',
+                      color: 'rgb(239, 68, 68)',
+                      border: '1px solid rgba(239, 68, 68, 0.3)',
+                    },
                   }}
                 >
                   Recent Chat
@@ -125,10 +130,12 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ workspaceId }) => {
                     justify="flex-start"
                     leftSection={<IconMessageCircle size={16} />}
                     className="liquid-button"
-                    style={{
-                      background: 'rgba(59, 130, 246, 0.2)',
-                      color: 'white',
-                      border: '1px solid rgba(59, 130, 246, 0.3)',
+                    styles={{
+                      root: {
+                        background: 'rgba(59, 130, 246, 0.2)',
+                        color: 'white',
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
+                      },
                     }}
                   >
                     {session.title}
@@ -141,10 +148,12 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ workspaceId }) => {
                       justify="flex-start"
                       leftSection={<IconMessageCircle size={16} />}
                       className="liquid-button"
-                      style={{
-                        background: 'rgba(59, 130, 246, 0.2)',
-                        color: 'white',
-                        border: '1px solid rgba(59, 130, 246, 0.3)',
+                      styles={{
+                        root: {
+                          background: 'rgba(59, 130, 246, 0.2)',
+                          color: 'white',
+                          border: '1px solid rgba(59, 130, 246, 0.3)',
+                        },
                       }}
                     >
                       Chat {i + 1}
@@ -158,11 +167,11 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ workspaceId }) => {
             <div className="p-4 border-t border-white/10">
               <Group gap="md">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                  <Text size="sm" fw={500} className="text-white">U</Text>
+                  <Text size="sm" fw={500} c="white">U</Text>
                 </div>
                 <div className="flex-1">
-                  <Text size="sm" fw={500} className="text-white">User</Text>
-                  <Text size="xs" className="text-white/60">Organization</Text>
+                  <Text size="sm" fw={500} c="white">User</Text>
+                  <Text size="xs" c="rgba(255, 255, 255, 0.6)">Organization</Text>
                 </div>
               </Group>
             </div>

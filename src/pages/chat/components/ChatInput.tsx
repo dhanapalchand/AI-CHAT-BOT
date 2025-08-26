@@ -39,7 +39,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
                   <ActionIcon
                     variant="subtle"
                     onClick={() => {/* Handle file attachment */}}
-                    className="text-white/60 hover:text-white"
+                    c="rgba(255, 255, 255, 0.6)"
                   >
                     <IconPaperclip size={20} />
                   </ActionIcon>
@@ -70,22 +70,24 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
             </div>
           
             <Button
-            type="submit"
-            disabled={!message.trim() || isLoading}
-            size="lg"
-            className="liquid-button"
-            style={{
-              background: !message.trim() || isLoading 
-                ? 'rgba(255, 255, 255, 0.1)' 
-                : 'linear-gradient(45deg, #667eea, #764ba2)',
-              color: 'white',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              borderRadius: '24px',
-              padding: '16px',
-            }}
-          >
-            <IconSend size={20} />
-          </Button>
+              type="submit"
+              disabled={!message.trim() || isLoading}
+              size="lg"
+              className="liquid-button"
+              styles={{
+                root: {
+                  background: !message.trim() || isLoading 
+                    ? 'rgba(255, 255, 255, 0.1)' 
+                    : 'linear-gradient(45deg, #667eea, #764ba2)',
+                  color: 'white',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  borderRadius: '24px',
+                  padding: '16px',
+                },
+              }}
+            >
+              <IconSend size={20} />
+            </Button>
           </Group>
         </form>
       </Container>
