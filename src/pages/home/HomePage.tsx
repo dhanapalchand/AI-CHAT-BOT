@@ -1,98 +1,165 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Search, Filter } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { Container, Title, Text, TextInput, Button, Group, Grid, SimpleGrid } from '@mantine/core';
+import { IconPlus, IconSearch, IconFilter } from '@tabler/icons-react';
+import { useWorkspaces } from '../../api/queries';
+import { currentWorkspaceState } from '../../store/atoms';
+import { Workspace } from '../../types';
 import WorkspaceCard from './components/WorkspaceCard';
 import GlassCard from '../../components/ui/GlassCard';
-import { getWorkspaces } from '../../api/queries';
+import Preloader from '../../components/ui/Preloader';
 
-export const HomePage: React.FC = () => {
-  const { data: workspaces, isLoading, error } = useQuery({
-    queryKey: ['workspaces'],
-    queryFn: getWorkspaces,
-  });
+const HomePage: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+  const setCurrentWorkspace = useSetRecoilState(currentWorkspaceState);
+  const { data: workspaces, isLoading, error } = useWorkspaces();
+
+  const handleEditWorkspace = (workspace: Workspace) => {
+    setCurrentWorkspace(workspace);
+    navigate(`/edit/${workspace.id}`);
+  };
+
+  const handleChatWithWorkspace = (workspace: Workspace) => {
+    setCurrentWorkspace(workspace);
+    navigate(`/chat/${workspace.id}`);
+  };
+
+  const filteredWorkspaces = workspaces?.filter(workspace =>
+    workspace.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    workspace.description.toLowerCase().includes(searchQuery.toLowerCase())
+  ) || [];
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-      </div>
-    );
+    return <Preloader message="Loading workspaces..." />;
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center">
+      <div 
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+      >
         <GlassCard className="p-8 text-center">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Workspaces</h2>
-          <p className="text-gray-600">Please try refreshing the page</p>
+          <Text size="xl" fw={600} className="text-white mb-2">
+            Error Loading Workspaces
+          </Text>
+          <Text className="text-white/80">
+            Please try refreshing the page
+          </Text>
         </GlassCard>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
-      <div className="container mx-auto px-4 py-8">
+    <div 
+      className="min-h-screen pt-20 pb-8"
+      style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+    >
+      <Container size="xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Your Workspaces</h1>
-          <p className="text-gray-600">Manage and access your AI-powered workspaces</p>
+          <Title order={1} size="h1" className="text-white mb-2">
+            Your AI Workspaces
+          </Title>
+          <Text size="lg" className="text-white/80">
+            Manage and access your AI-powered document workspaces
+          </Text>
         </motion.div>
 
-        {/* Search and Filter Bar */}
+        {/* Search and Actions */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           className="mb-8"
         >
-          <GlassCard className="p-4">
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <input
-                  type="text"
+          <GlassCard className="p-6">
+            <Group justify="space-between" align="center">
+              <div className="flex-1 max-w-md">
+                <TextInput
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search workspaces..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/50"
+                  leftSection={<IconSearch size={16} />}
+                  styles={{
+                    input: {
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '12px',
+                      color: 'white',
+                      '&::placeholder': {
+                        color: 'rgba(255, 255, 255, 0.6)',
+                      },
+                    },
+                  }}
                 />
               </div>
-              <div className="flex gap-2">
-                <button className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
-                  <Filter className="w-4 h-4" />
+              
+              <Group gap="md">
+                <Button
+                  variant="subtle"
+                  leftSection={<IconFilter size={16} />}
+                  className="liquid-button"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
                   Filter
-                </button>
-                <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                  <Plus className="w-4 h-4" />
+                </Button>
+                
+                <Button
+                  onClick={() => navigate('/create')}
+                  leftSection={<IconPlus size={16} />}
+                  className="liquid-button"
+                  style={{
+                    background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                  }}
+                >
                   New Workspace
-                </button>
-              </div>
-            </div>
+                </Button>
+              </Group>
+            </Group>
           </GlassCard>
         </motion.div>
 
         {/* Workspaces Grid */}
-        {workspaces && workspaces.length > 0 ? (
+        {filteredWorkspaces.length > 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {workspaces.map((workspace, index) => (
-              <motion.div
-                key={workspace.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index }}
-              >
-                <WorkspaceCard workspace={workspace} />
-              </motion.div>
-            ))}
+            <SimpleGrid
+              cols={{ base: 1, sm: 2, lg: 3 }}
+              spacing="xl"
+            >
+              {filteredWorkspaces.map((workspace, index) => (
+                <motion.div
+                  key={workspace.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                >
+                  <WorkspaceCard
+                    workspace={workspace}
+                    onEdit={handleEditWorkspace}
+                    onChat={handleChatWithWorkspace}
+                  />
+                </motion.div>
+              ))}
+            </SimpleGrid>
           </motion.div>
         ) : (
           <motion.div
@@ -102,18 +169,38 @@ export const HomePage: React.FC = () => {
             className="text-center py-16"
           >
             <GlassCard className="p-12 max-w-md mx-auto">
-              <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Plus className="w-8 h-8 text-indigo-600" />
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <IconPlus size={32} className="text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">No Workspaces Yet</h3>
-              <p className="text-gray-600 mb-6">Create your first workspace to get started with AI-powered collaboration</p>
-              <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                Create Workspace
-              </button>
+              <Title order={3} className="text-white mb-4">
+                {searchQuery ? 'No workspaces found' : 'No workspaces yet'}
+              </Title>
+              <Text className="text-white/80 mb-6">
+                {searchQuery 
+                  ? 'Try adjusting your search terms'
+                  : 'Create your first workspace to get started with AI-powered document analysis'
+                }
+              </Text>
+              {!searchQuery && (
+                <Button
+                  onClick={() => navigate('/create')}
+                  leftSection={<IconPlus size={16} />}
+                  className="liquid-button"
+                  style={{
+                    background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                  }}
+                >
+                  Create Your First Workspace
+                </Button>
+              )}
             </GlassCard>
           </motion.div>
         )}
-      </div>
+      </Container>
     </div>
   );
 };
+
+export default HomePage;
