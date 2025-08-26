@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Plus, Search, Filter } from 'lucide-react';
 import { WorkspaceCard } from './components/WorkspaceCard';
-import { GlassCard } from '../../components/ui/GlassCard';
+import GlassCard from '../../components/ui/GlassCard';
 import { getWorkspaces } from '../../api/queries';
 
 export const HomePage: React.FC = () => {
